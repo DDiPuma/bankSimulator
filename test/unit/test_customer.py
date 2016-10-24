@@ -1,5 +1,9 @@
 # Dominic DiPuma
 
+import sys
+sys.path.append("src/")
+from customer import Customer
+
 class TestCustomer:
     def test_first_customer_id(self):
         first_cust = Customer()
