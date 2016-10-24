@@ -8,25 +8,21 @@ class Bank:
     """The Bank class contains all of the simulated people, the events, and
     is responsible for the execution of simulation logic"""
 
-    def __init__(self, num_tellers, arrival_rate, service_time = 1):
-        self._arrival_rate = arrival_rate
+    def __init__(self, service_time = 1):
         self._service_time = service_time
+        self._time = 0
 
         self._customer_queue = []
-        self._event_record = []
         self._tellers = []
 
-        for i in range(0, num_tellers):
-            add_teller()
-
-    def customer_arrives(self):
-        self._customer_queue.append(
-
     def hire_teller(self):
-        
+        pass
 
     def simulate_tick(self):
-
+        self._time += 1
     
     def store_event(self, event):
+        pass
 
+    def get_time(self):
+        return self._time
