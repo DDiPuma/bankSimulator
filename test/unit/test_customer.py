@@ -10,6 +10,5 @@ class TestCustomer:
         assert first_cust.get_id() == 0
 
     def test_second_customer_id(self):
-        first_cust = Customer()
         second_cust = Customer()
         assert second_cust.get_id() == 1 
