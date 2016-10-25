@@ -1,10 +1,8 @@
 # Dominic DiPuma
 
-import pytest
-
 import sys
 sys.path.append("src/")
-from bank import *
+from bank import Bank
 
 class TestBank:
     def test_time_ticks(self):

@@ -1,6 +1,5 @@
 # Dominic DiPuma
 
-from bank import Bank
 from event import Event
 from teller import Teller
 
@@ -8,8 +7,8 @@ class Customer:
     current_id = 0
 
     def __init__(self, service_time = 1):
-        self._id = current_id
-        current_id += 1
+        self._id = self.__class__.current_id
+        self.__class__.current_id += 1
 
         self._service_time = service_time
 
