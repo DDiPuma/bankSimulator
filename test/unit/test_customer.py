@@ -115,3 +115,20 @@ class TestCustomer:
         cust = customer.Customer()
         with pytest.raises(Exception) as exception_info:
             cust.get_total_time()
+
+    def test_longer_service_time_false(self):
+        sample_bank = bank.Bank()
+        cust = customer.Customer(2)
+        cust.go_to_bank(1, sample_bank)
+        sample_teller = teller.Teller()
+        cust.go_to_teller(2, sample_teller)
+        assert ~cust.accept_teller_service()
+
+    def test_longer_service_time_true(self):
+        sample_bank = bank.Bank()
+        cust = customer.Customer(2)
+        cust.go_to_bank(1, sample_bank)
+        sample_teller = teller.Teller()
+        cust.go_to_teller(2, sample_teller)
+        cust.accept_teller_service()
+        assert cust.accept_teller_service()
