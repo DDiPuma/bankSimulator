@@ -15,17 +15,20 @@ class Customer:
 
         self._arrival_time = None
         self._time_reached_teller = None
-        self._time_departed = None
+        self._departure_time = None
         self._time_at_teller = 0
 
         self._bank = None
         self._teller = None
 
     def accept_teller_service(self):
+        if self._time_reached_teller == None:
+            raise Exception('Customer is not at a teller!')
+
         self._time_at_teller += 1
 
         if self._time_at_teller >= self._service_time:
-            self.leave_bank()
+            self.leave_bank(self._time_reached_teller + self._service_time)
             return True
 
         return False
@@ -48,16 +51,31 @@ class Customer:
         return self._id
 
     def get_arrival_time(self):
+        if self._arrival_time == None:
+            raise Exception('Customer is not at a bank!')
+
         return self._arrival_time
 
     def get_time_reached_teller(self):
+        if self._time_reached_teller == None:
+            raise Exception('Customer is not at a teller!')
+
         return self._time_reached_teller
 
-    def get_time_departed(self):
-        return self.time_departed
+    def get_departure_time(self):
+        if self._departure_time == None:
+            raise Exception('Customer has not departed!')
+
+        return self._departure_time
 
     def get_wait_time(self):
+        if self._time_reached_teller == None:
+            raise Exception('Customer is not done waiting!')
+
         return self._time_reached_teller - self._arrival_time
 
     def get_total_time(self):
-        return self._time_departed - self._arrival_time
+        if self._departure_time == None:
+            raise Exception('Customer has not departed!')
+
+        return self._departure_time - self._arrival_time
