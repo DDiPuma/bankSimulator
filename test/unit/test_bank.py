@@ -2,7 +2,7 @@
 
 import sys
 sys.path.append("src/")
-from bank import Bank
+import bank 
 
 class TestBank:
     def test_time_ticks(self):

@@ -2,7 +2,7 @@
 
 import sys
 sys.path.append("src/")
-from customer import Customer
+import customer
 
 class TestCustomer:
     def test_first_customer_id(self):

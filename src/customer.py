@@ -1,7 +1,8 @@
 # Dominic DiPuma
 
-from event import Event
-from teller import Teller
+import bank
+import event
+import teller
 
 class Customer:
     current_id = 0

@@ -2,10 +2,10 @@
 # Programming Methodology 2
 # Project 1 - Bank Simulation
 
-from customer import Customer
-from event import Event
-from event_record import EventRecord
-from teller import Teller
+import customer
+import event
+import event_record
+import teller
 
 class Bank:
     """The Bank class is firstly a container for the queue, tellers, time,
@@ -15,7 +15,7 @@ class Bank:
         self._time = 0
 
         self._customer_queue = []
-        self._event_record = EventRecord()
+        self._event_record = event_record.EventRecord()
         self._tellers = []
 
     def hire_teller(self):
