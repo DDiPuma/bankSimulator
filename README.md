@@ -1,6 +1,6 @@
 # Bank Simulator
 
-![Travis-CI Status Image](https://travis-ci.org/DDiPuma/bankSimulator.svg?branch=master)
+[![Build Status](https://travis-ci.org/DDiPuma/bankSimulator.svg?branch=master)](https://travis-ci.org/DDiPuma/bankSimulator)
 
 This project contains the following:
 - Raw .dia files for UML diagrams of the system's design
