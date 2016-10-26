@@ -2,10 +2,10 @@
 
 import sys
 sys.path.append("src/")
-import bank 
+import bank as b
 
 class TestBank:
     def test_time_ticks(self):
-        sampleBank = bank.Bank()
+        sampleBank = b.Bank()
         sampleBank.simulate_tick()
         assert sampleBank.get_time() == 1
