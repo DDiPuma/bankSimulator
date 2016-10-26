@@ -27,11 +27,11 @@ class Teller:
             raise Exception('Teller already has a customer!')
 
         self._current_customer = cust
-        cust.go_to_teller(self, self._bank.get_time())
+        cust.go_to_teller(self)
 
     def release_customer(self):
         self._customers_served += 1
-        self._current_customer.leave_bank(self._bank.get_time())
+        self._current_customer.leave_bank()
         self._current_customer = None
 
     def work_one_turn(self):

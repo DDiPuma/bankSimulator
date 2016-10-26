@@ -1,11 +1,16 @@
 # Dominic DiPuma
 
 import pytest
+from unittest.mock import MagicMock
+
 import sys
 sys.path.append("src/")
 import teller as t
 import bank as b
 import customer as c
+
+"""While bank and customer are imported, any functional dependencies are
+   mocked out"""
 
 class TestTeller:
     def test_id_increments(self):
@@ -45,7 +50,6 @@ class TestTeller:
         sample_bank = b.Bank()
 
         sample_teller.assign_to_bank(sample_bank)
-
 
         sample_teller.take_customer(sample_cust1)
         sample_teller.release_customer()

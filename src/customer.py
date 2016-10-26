@@ -28,23 +28,24 @@ class Customer:
         self._time_at_teller += 1
 
         if self._time_at_teller >= self._service_time:
-            self.leave_bank(self._time_reached_teller + self._service_time)
+            self._departure_time = self._time_reached_teller + self._service_time
+            self.leave_bank()
             return True
 
         return False
 
-    def go_to_bank(self, time, bank):
-        self._arrival_time = time
+    def go_to_bank(self, bank):
         self._bank = bank
+        self._arrival_time = self._time()
         # PUBLISH AN EVENT
 
-    def go_to_teller(self, time, teller):
-        self._time_reached_teller = time
+    def go_to_teller(self, teller):
+        self._time_reached_teller = self._time()
         self._teller = teller
         # PUBLISH AN EVENT
 
-    def leave_bank(self, time):
-        self._departure_time = time
+    def leave_bank(self):
+        return 1
         # PUBLISH AN EVENT
 
     def get_id(self):
@@ -79,3 +80,11 @@ class Customer:
             raise Exception('Customer has not departed!')
 
         return self._departure_time - self._arrival_time
+
+    def _time(self):
+        """Abstract away the process of getting time to prevent copypaste code.
+           Also, helps in unit testing by getting rid of the bank dependency"""
+        if self._bank == None:
+            return 0
+
+        return self._bank.get_time()
