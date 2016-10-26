@@ -8,13 +8,10 @@ import bank as b
 import customer as c
 
 class TestTeller:
-    def test_first_id(self):
+    def test_id_increments(self):
         first_teller = t.Teller()
-        assert first_teller.get_id() == 0
-
-    def test_second_id(self):
         second_teller = t.Teller()
-        assert second_teller.get_id() == 1
+        assert second_teller.get_id() == first_teller.get_id() + 1
 
     def test_take_customer(self):
         sample_teller = t.Teller()
