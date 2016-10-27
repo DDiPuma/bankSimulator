@@ -14,10 +14,10 @@ class Teller:
         self._turns_idle = 0
 
     def has_customer(self):
-        if self._current_customer == None:
-            return False
+        if self._current_customer:
+            return True
 
-        return True
+        return False
 
     def take_customer(self, cust):
         if self.has_customer():
@@ -32,13 +32,14 @@ class Teller:
         self._current_customer = None
 
     def work_one_turn(self):
-        if ~self.has_customer():
+        if self.has_customer():
+            customer_can_leave = self._current_customer.accept_teller_service()
+            if customer_can_leave:
+                self.release_customer()
+        else:
             self._turns_idle += 1
             return
 
-        can_customer_leave = self._current_customer.accept_teller_service()
-        if customer_can_leave:
-            self.release_customer()
 
     def get_customers_served(self):
         return self._customers_served
