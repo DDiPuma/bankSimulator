@@ -7,19 +7,22 @@ import teller
 class Customer:
     current_id = 0
 
-    def __init__(self, service_time = 1):
+    def __init__(self, bank, service_time = 1):
         self._id = self.__class__.current_id
         self.__class__.current_id += 1
 
         self._service_time = service_time
 
-        self._arrival_time = None
+        self._bank = bank
+        self._arrival_time = self._time()
+
         self._time_reached_teller = None
         self._departure_time = None
         self._time_at_teller = 0
 
-        self._bank = None
         self._teller = None
+
+        # PUBLISH AN EVENT
 
     def accept_teller_service(self):
         if self._time_reached_teller == None:
@@ -33,11 +36,6 @@ class Customer:
             return True
 
         return False
-
-    def go_to_bank(self, bank):
-        self._bank = bank
-        self._arrival_time = self._time()
-        # PUBLISH AN EVENT
 
     def go_to_teller(self, teller):
         self._time_reached_teller = self._time()

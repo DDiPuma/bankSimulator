@@ -13,9 +13,6 @@ class Teller:
         self._customers_served = 0
         self._turns_idle = 0
 
-    def assign_to_bank(self, bank):
-        self._bank = bank
-
     def has_customer(self):
         if self._current_customer == None:
             return False

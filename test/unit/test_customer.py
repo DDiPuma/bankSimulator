@@ -14,30 +14,27 @@ import teller as t
 
 class TestCustomer:
     def test_id_increments(self):
-        first_cust = c.Customer()
-        second_cust = c.Customer()
+        sample_bank = b.Bank()
+        first_cust = c.Customer(sample_bank)
+        second_cust = c.Customer(sample_bank)
         assert second_cust.get_id() == first_cust.get_id() + 1
 
-    def test_bank_arrival(self):
+    def test_arrival_event_published(self):
         sample_bank = b.Bank()
-        cust = c.Customer(1)
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
         # Ultimately, assert that the event is published to the bank
         assert 1
 
     def test_arrival_time(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-
         sample_bank.get_time = MagicMock(return_value = 1)
+        cust = c.Customer(sample_bank)
 
-        cust.go_to_bank(sample_bank)
         assert cust.get_arrival_time() == 1
 
-    def test_go_to_teller(self):
+    def test_teller_event_published(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
         sample_teller = t.Teller()
         cust.go_to_teller(sample_teller)
         # Ultimately, assert that the event is published to the bank
@@ -45,8 +42,7 @@ class TestCustomer:
 
     def test_time_reached_teller(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
         
         sample_teller = t.Teller()
         sample_bank.get_time = MagicMock(return_value = 2)
@@ -56,10 +52,8 @@ class TestCustomer:
 
     def test_wait_time(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-        
         sample_bank.get_time = MagicMock(return_value = 1)
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
 
         sample_teller = t.Teller()
         sample_bank.get_time = MagicMock(return_value = 2)
@@ -69,16 +63,14 @@ class TestCustomer:
 
     def test_accept_teller_service(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
         sample_teller = t.Teller()
         cust.go_to_teller(sample_teller)
         assert cust.accept_teller_service()
 
-    def test_leave_bank_called(self):
+    def test_departure_event_published(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
         sample_teller = t.Teller()
         cust.go_to_teller(sample_teller)
         cust.accept_teller_service()
@@ -87,10 +79,8 @@ class TestCustomer:
 
     def test_total_time(self):
         sample_bank = b.Bank()
-        cust = c.Customer()
-        
         sample_bank.get_time = MagicMock(return_value = 1)
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank)
 
         sample_teller = t.Teller()
         sample_bank.get_time = MagicMock(return_value = 2)
@@ -99,36 +89,34 @@ class TestCustomer:
         cust.accept_teller_service()
         assert cust.get_total_time() == 2
 
-    def test_arrival_time_blank(self):
-        cust = c.Customer()
-        with pytest.raises(Exception) as exception_info:
-            cust.get_arrival_time()
-
     def test_time_reached_teller_blank(self):
-        cust = c.Customer()
+        sample_bank = b.Bank()
+        cust = c.Customer(sample_bank)
         with pytest.raises(Exception) as exception_info:
             cust.get_time_reached_teller()
 
     def test_invalid_departure_time(self):
-        cust = c.Customer()
+        sample_bank = b.Bank()
+        cust = c.Customer(sample_bank)
         with pytest.raises(Exception) as exception_info:
             cust.get_departure_time()
 
     def test_invalid_wait_time(self):
-        cust = c.Customer()
+        sample_bank = b.Bank()
+        cust = c.Customer(sample_bank)
         with pytest.raises(Exception) as exception_info:
             cust.get_wait_time()
 
     def test_invalid_total_time(self):
-        cust = c.Customer()
+        sample_bank = b.Bank()
+        cust = c.Customer(sample_bank)
         with pytest.raises(Exception) as exception_info:
             cust.get_total_time()
 
     def test_longer_service_time_false(self):
         sample_bank = b.Bank()
-        cust = c.Customer(2)
         sample_bank.get_time = MagicMock(return_value = 1)
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank, 2)
         sample_teller = t.Teller()
         sample_bank.get_time = MagicMock(return_value = 2)
         cust.go_to_teller(sample_teller)
@@ -136,9 +124,8 @@ class TestCustomer:
 
     def test_longer_service_time_true(self):
         sample_bank = b.Bank()
-        cust = c.Customer(2)
         sample_bank.get_time = MagicMock(return_value = 1)
-        cust.go_to_bank(sample_bank)
+        cust = c.Customer(sample_bank, 2)
         sample_teller = t.Teller()
         sample_bank.get_time = MagicMock(return_value = 2)
         cust.go_to_teller(sample_teller)

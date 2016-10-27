@@ -20,10 +20,10 @@ class TestTeller:
 
     def test_take_customer(self):
         sample_teller = t.Teller()
-        sample_cust = c.Customer()
         sample_bank = b.Bank()
+        sample_cust = c.Customer(sample_bank)
 
-        sample_teller.assign_to_bank(sample_bank)
+        sample_cust.go_to_teller = MagicMock()
 
         sample_teller.take_customer(sample_cust)
 
@@ -34,10 +34,8 @@ class TestTeller:
         sample_teller = t.Teller()
         sample_bank = b.Bank()
 
-        sample_teller.assign_to_bank(sample_bank)
-
-        sample_cust1 = c.Customer()
-        sample_cust2 = c.Customer()
+        sample_cust1 = c.Customer(sample_bank)
+        sample_cust2 = c.Customer(sample_bank)
 
         sample_teller.take_customer(sample_cust1)
         with pytest.raises(Exception) as exception_info:
@@ -45,11 +43,9 @@ class TestTeller:
 
     def test_release_customer(self):
         sample_teller = t.Teller()
-        sample_cust1 = c.Customer()
-        sample_cust2 = c.Customer()
         sample_bank = b.Bank()
-
-        sample_teller.assign_to_bank(sample_bank)
+        sample_cust1 = c.Customer(sample_bank)
+        sample_cust2 = c.Customer(sample_bank)
 
         sample_teller.take_customer(sample_cust1)
         sample_teller.release_customer()
