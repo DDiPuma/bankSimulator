@@ -48,3 +48,6 @@ class TestBank:
     def test_teller_takes_cust(self):
         sample_bank = b.Bank()
         sample_bank.hire_tellers(1)
+        sample_bank.customers_arrive(1)
+        sample_bank.simulate_tick()
+        assert sample_bank.length_of_queue() == 0

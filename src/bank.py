@@ -20,24 +20,21 @@ class Bank:
 
     def hire_tellers(self, n):
         for i in range(0,n):
-            self._hire_teller()
-
-    def _hire_teller(self):
-        new_teller = t.Teller()
-        self._tellers.append(t)
+            new_teller = t.Teller()
+            self._tellers.append(new_teller)
 
     def simulate_tick(self):
         # Increment the time
         self._time += 1
 
         # Check for free tellers, and give them customers
-        for teller in self._tellers:
-            if ~teller.has_customer() and self._are_customers_in_queue():
-                teller.take_customer(self._customer_queue.pop(0))
+        for tell in self._tellers:
+            if ~tell.has_customer() and self.are_customers_in_queue():
+                tell.take_customer(self._customer_queue.pop(0))
 
         # Make all the tellers work
-        for teller in self._tellers:
-            teller.work_one_turn()
+        for tell in self._tellers:
+            tell.work_one_turn()
     
     def save_event(self, event):
         pass
@@ -53,15 +50,15 @@ class Bank:
 
     def _are_customers_in_bank(self):
         if _are_customers_in_queue():
-            return 1
-        for teller in self._tellers:
-            if teller.has_customer():
-                return 1
+            return True
+        for tell in self._tellers:
+            if tell.has_customer():
+                return True
 
-        return 0
+        return False
 
     def are_customers_in_queue(self):
-        return self.num_of_customers() > 0
+        return self.length_of_queue() > 0
 
     def customers_arrive(self, num_customers, service_time = 1):
         for i in range(0, num_customers):
