@@ -40,17 +40,6 @@ class TestTeller:
         with pytest.raises(Exception) as exception_info:
             sample_teller.take_customer(sample_cust2)
 
-    def test_release_customer(self):
-        sample_teller = t.Teller()
-        sample_bank = b.Bank()
-        sample_cust1 = c.Customer(sample_bank)
-        sample_cust2 = c.Customer(sample_bank)
-
-        sample_teller.take_customer(sample_cust1)
-        sample_teller.release_customer()
-
-        sample_teller.take_customer(sample_cust2)
-
     def test_service_customer_with_one_turn_once(self):
         sample_teller = t.Teller()
         sample_bank = b.Bank()
@@ -81,51 +70,3 @@ class TestTeller:
         sample_teller.work_one_turn()
 
         assert ~sample_teller.has_customer()
-
-    def test_customers_served(self):
-        sample_teller = t.Teller()
-        sample_bank = b.Bank()
-        sample_cust = c.Customer(sample_bank)
-
-        sample_teller.take_customer(sample_cust)
-        sample_teller.work_one_turn()
-
-        assert sample_teller.get_customers_served() == 1
-
-    def test_two_customers_served(self):
-        sample_teller = t.Teller()
-        sample_bank = b.Bank()
-        sample_cust1 = c.Customer(sample_bank)
-
-        sample_teller.take_customer(sample_cust1)
-        sample_teller.work_one_turn()
-
-        sample_cust2 = c.Customer(sample_bank)
-        sample_teller.take_customer(sample_cust2)
-        sample_teller.work_one_turn()
-
-        assert sample_teller.get_customers_served() == 2
-
-    def test_turns_idle(self):
-        sample_teller = t.Teller()
-        sample_teller.work_one_turn()
-
-        assert sample_teller.get_turns_idle() == 1
-
-    def test_two_turns_idle(self):
-        sample_teller = t.Teller()
-        sample_teller.work_one_turn()
-        sample_teller.work_one_turn()
-
-        assert sample_teller.get_turns_idle() == 2
-
-    def test_turns_idle_after_service(self):
-        sample_teller = t.Teller()
-        sample_bank = b.Bank()
-        sample_cust = c.Customer(sample_bank)
-
-        sample_teller.take_customer(sample_cust)
-        sample_teller.work_one_turn()
-        sample_teller.work_one_turn()
-
-        assert sample_teller.get_turns_idle() == 1

@@ -17,7 +17,7 @@ class TestBank:
     def test_time_ticks(self):
         sample_bank = b.Bank()
         sample_bank.simulate_tick()
-        assert sample_bank.get_time() == 1
+        assert sample_bank.get_time() == 2
 
     def test_no_tellers(self):
         sample_bank = b.Bank()

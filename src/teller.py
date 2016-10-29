@@ -1,14 +1,6 @@
 # Dominic DiPuma
 
 class Teller:
-    """The teller holds a customer, provides them service, and releases them.
-    The Bank class should be responsible for generating Tellers as well as
-    handing them customers and ordering them to work, via the has_customer,
-    take_customer, and work_one_turn methods.
-    It tracks its customers served and turns idle as well.  These
-    pieces of data are unused as of yet, but provide (tested!) functionality
-    if the customers' use cases expand in the future"""
-
     # ID is a class attribute, and constructs identifiable tellers for printing
     # purposes in the future
     current_id = 0
@@ -43,13 +35,6 @@ class Teller:
         self._current_customer = cust
         cust.go_to_teller(self)
 
-    def release_customer(self):
-        # Track data, make the customer leave the bank, and clear the teller's
-        # customer attribute
-        self._customers_served += 1
-        self._current_customer.leave_bank()
-        self._current_customer = None
-
     def work_one_turn(self):
         # If there is a customer at the teller, service them
         if self.has_customer():
@@ -57,18 +42,9 @@ class Teller:
             # maximum needed turns for service
             customer_can_leave = self._current_customer.accept_teller_service()
             if customer_can_leave:
-                self.release_customer()
-        # If the teller is idling, track that data
-        else:
-            self._turns_idle += 1
-            return
+                self._current_customer.leave_bank()
+                self._current_customer = None
 
     # Below this point are all dumb getter methods
-    def get_customers_served(self):
-        return self._customers_served
-
-    def get_turns_idle(self):
-        return self._turns_idle
-
     def get_id(self):
         return self._id

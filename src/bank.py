@@ -16,7 +16,7 @@ class Bank:
         self._id = self.__class__._current_id
         self.__class__._current_id += 1
 
-        self._time = 0
+        self._time = 1
 
         self._customer_queue = []
         self._event_record = er.EventRecord()
@@ -34,9 +34,6 @@ class Bank:
             self._customer_queue.append(c.Customer(self, service_time))
 
     def simulate_tick(self):
-        # Increment the time first
-        self._time += 1
-
         # Check for free tellers, and give them customers, if there are any
         # This is advancing the queue, fundamentally
         for tell in self._tellers:
@@ -49,6 +46,9 @@ class Bank:
         for tell in self._tellers:
             tell.work_one_turn()
     
+        # Increment the time
+        self._time += 1
+
     def save_event(self, event):
         self._event_record.add_event(event)
 

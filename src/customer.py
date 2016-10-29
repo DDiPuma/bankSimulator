@@ -30,7 +30,7 @@ class Customer:
         self._time_at_teller += 1
 
         if self._time_at_teller >= self._service_time:
-            self._departure_time = self._time_reached_teller + self._service_time
+            self._departure_time = self._time() 
             self.leave_bank()
             return True
 
@@ -39,11 +39,14 @@ class Customer:
     def go_to_teller(self, teller):
         self._time_reached_teller = self._time()
         self._teller = teller
-        # PUBLISH AN EVENT
+
+        service_event = e.CustomerServiceEvent(self, teller, 
+                self._time_reached_teller)
+        self._bank.save_event(service_event)
 
     def leave_bank(self):
-        return 1
-        # PUBLISH AN EVENT
+        departure_event = e.CustomerDepartureEvent(self, self._departure_time)
+        self._bank.save_event(departure_event)
 
     def get_id(self):
         return self._id
@@ -79,7 +82,7 @@ class Customer:
         if self._departure_time == None:
             raise Exception('Customer has not departed!')
 
-        return self._departure_time - self._arrival_time
+        return self.get_wait_time() + self._service_time
 
     def _time(self):
         """Abstract away the process of getting time to prevent copypaste code.
