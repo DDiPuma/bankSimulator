@@ -1,8 +1,6 @@
 # Dominic DiPuma
 
-import bank
-import event
-import teller
+import event as e
 
 class Customer:
     current_id = 0
@@ -22,7 +20,8 @@ class Customer:
 
         self._teller = None
 
-        # PUBLISH AN EVENT
+        arrival_event = e.CustomerArrivalEvent(self, self._arrival_time)
+        self._bank.save_event(arrival_event)
 
     def accept_teller_service(self):
         if self._time_reached_teller == None:
@@ -48,6 +47,9 @@ class Customer:
 
     def get_id(self):
         return self._id
+
+    def get_bank_id(self):
+        return self._bank.get_id()
 
     def get_arrival_time(self):
         if self._arrival_time == None:

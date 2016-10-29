@@ -9,6 +9,11 @@ import bank as b
 import customer as c
 
 class TestBank:
+    def test_id_increments(self):
+        bank1 = b.Bank()
+        bank2 = b.Bank()
+        assert bank2.get_id() == bank1.get_id() + 1
+
     def test_time_ticks(self):
         sample_bank = b.Bank()
         sample_bank.simulate_tick()

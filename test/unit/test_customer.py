@@ -25,6 +25,11 @@ class TestCustomer:
         # Ultimately, assert that the event is published to the bank
         assert 1
 
+    def test_get_bank_id(self):
+        sample_bank = b.Bank()
+        cust = c.Customer(sample_bank)
+        assert type(cust.get_bank_id()) is int
+
     def test_arrival_time(self):
         sample_bank = b.Bank()
         sample_bank.get_time = MagicMock(return_value = 1)
