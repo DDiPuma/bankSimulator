@@ -1,12 +1,14 @@
 # Dominic DiPuma
 
 class EventRecord:
-    def __init__(self, events=[]):
-        self._event_list = events
+    def __init__(self, event_list=None):
+        self._event_list = event_list
+
+        if self._event_list == None:
+            self._event_list = []
 
     def add_event(self, event):
         self._event_list.append(event)
-        event.print()
 
     def get_event_list(self):
         return self._event_list
