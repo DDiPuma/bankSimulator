@@ -62,8 +62,8 @@ class Bank:
     def length_of_queue(self):
         return len(self._customer_queue)
 
-    def _are_customers_in_bank(self):
-        if _are_customers_in_queue():
+    def are_customers_in_bank(self):
+        if self.are_customers_in_queue():
             return True
         for tell in self._tellers:
             if tell.has_customer():
@@ -76,3 +76,6 @@ class Bank:
 
     def get_id(self):
         return self._id
+
+    def get_event_record(self):
+        return self._event_record

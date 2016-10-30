@@ -42,7 +42,6 @@ class Teller:
             # maximum needed turns for service
             customer_can_leave = self._current_customer.accept_teller_service()
             if customer_can_leave:
-                self._current_customer.leave_bank()
                 self._current_customer = None
 
     # Below this point are all dumb getter methods

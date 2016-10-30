@@ -47,6 +47,7 @@ class Customer:
     def leave_bank(self):
         departure_event = e.CustomerDepartureEvent(self, self._departure_time)
         self._bank.save_event(departure_event)
+        self._bank = None
 
     def get_id(self):
         return self._id
