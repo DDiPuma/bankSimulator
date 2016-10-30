@@ -21,9 +21,10 @@ class TestCustomer:
 
     def test_arrival_event_published(self):
         sample_bank = b.Bank()
+        sample_bank.save_event = MagicMock()
         cust = c.Customer(sample_bank)
-        # Ultimately, assert that the event is published to the bank
-        assert 1
+
+        assert sample_bank.save_event.called
 
     def test_get_bank_id(self):
         sample_bank = b.Bank()
@@ -41,9 +42,10 @@ class TestCustomer:
         sample_bank = b.Bank()
         cust = c.Customer(sample_bank)
         sample_teller = t.Teller()
+        sample_bank.save_event = MagicMock()
         cust.go_to_teller(sample_teller)
-        # Ultimately, assert that the event is published to the bank
-        assert 1
+
+        assert sample_bank.save_event.called
 
     def test_time_reached_teller(self):
         sample_bank = b.Bank()
@@ -78,9 +80,10 @@ class TestCustomer:
         cust = c.Customer(sample_bank)
         sample_teller = t.Teller()
         cust.go_to_teller(sample_teller)
+        sample_bank.save_event = MagicMock()
         cust.accept_teller_service()
-        # Ultimately, assert that the event is published to the bank
-        assert 1
+
+        assert sample_bank.save_event.called
 
     def test_total_time(self):
         sample_bank = b.Bank()
