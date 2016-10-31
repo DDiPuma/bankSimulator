@@ -1,12 +1,13 @@
 # Dominic DiPuma
 
+"""Contains the Teller class"""
+
 class Teller:
     # ID is a class attribute, and constructs identifiable tellers for printing
     # purposes in the future
     current_id = 0
 
     def __init__(self):
-        # Constructor takes no arguments
         self._id = self.__class__.current_id
         self.__class__.current_id += 1
 

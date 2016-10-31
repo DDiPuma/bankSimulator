@@ -23,17 +23,6 @@ class TestCustomerArrivalEvent:
 
         assert arrival2.get_id() == arrival1.get_id() + 1
 
-    def test_output_is_sane(self):
-        sample_bank = b.Bank()
-        sample_bank.simulate_tick()
-
-        cust = c.Customer(sample_bank)
-
-        arrival = e.CustomerArrivalEvent(sample_bank.get_time(), cust)
-
-        # FIGURE OUT HOW TO PROPERLY TEST OUTPUT
-        assert 1
-
 class TestCustomerServiceEvent:
     def test_id_increments(self):
         sample_bank = b.Bank()

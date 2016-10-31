@@ -1,6 +1,9 @@
 # Dominic DiPuma
 
+"""Contains the Event class as well as its bank-related subclasses"""
+
 class Event:
+    """"""
     current_id = 0
 
     def __init__(self, time):
@@ -16,6 +19,8 @@ class Event:
         return self._time
 
 class CustomerArrivalEvent(Event):
+    """"""
+
     def __init__(self, customer, time):
         super().__init__(time)
         self._customer = customer
@@ -37,16 +42,19 @@ class CustomerServiceEvent(Event):
         self._teller = teller
 
     def print(self):
+        # Get the needed data
         tick = self._time
         bank_id = self._customer.get_bank_id()
         cust_id = self._customer.get_id()
         tell_id = self._teller.get_id()
 
+        # Create a string to print out
         print("Tick #{0}, Bank #{1}: Customer #{2} reaches Teller #{3}".format(
             tick,bank_id, cust_id, tell_id))
 
 class CustomerDepartureEvent(Event):
     def __init__(self, customer, time):
+        """"""
         super().__init__(time)
         self._customer = customer
 
@@ -61,7 +69,9 @@ class CustomerDepartureEvent(Event):
             bank_id, cust_id))
 
     def get_wait_time(self):
+        """"""
         return self._customer.get_wait_time()
 
     def get_total_time(self):
+        """"""
         return self._customer.get_total_time()

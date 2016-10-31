@@ -1,11 +1,15 @@
 # Dominic DiPuma
 
+"""Contains the Customer class"""
+
 import event as e
 
 class Customer:
     current_id = 0
 
     def __init__(self, bank, service_time = 1):
+        """Constructing the customer should send the bank an Event"""
+        # Most of these assignments are null
         self._id = self.__class__.current_id
         self.__class__.current_id += 1
 
@@ -24,6 +28,7 @@ class Customer:
         self._bank.save_event(arrival_event)
 
     def accept_teller_service(self):
+        """Decide whether customer is done, and return that status to the teller"""
         if self._time_reached_teller == None:
             raise Exception('Customer is not at a teller!')
 
@@ -37,6 +42,7 @@ class Customer:
         return False
 
     def go_to_teller(self, teller):
+        """Assign the customer to a teller, and send the bank an Event"""
         self._time_reached_teller = self._time()
         self._teller = teller
 
@@ -45,10 +51,12 @@ class Customer:
         self._bank.save_event(service_event)
 
     def leave_bank(self):
+        """Have the customer leave the bank, and send the bank an Event"""
         departure_event = e.CustomerDepartureEvent(self, self._departure_time)
         self._bank.save_event(departure_event)
         self._bank = None
 
+    # Below this point there are mostly dumb getter methods
     def get_id(self):
         return self._id
 

@@ -1,8 +1,25 @@
 # Dominic DiPuma
 
+"""A sample use of the bank simulation system"""
+
+import matplotlib.pyplot as plt
+
 import bank as b
+import event as e 
+
+def get_average_wait_time(bank):
+    """Given a bank, return the bank's average wait time
+    
+    This module will only read from Departure events, which means that if the
+    bank is not yet empty, it will give incomplete data"""
+    rec = bank.get_event_record()
+    departures = rec.filter_by_type(e.CustomerDepartureEvent).get_event_list()
+    wait_times = [event.get_wait_time() for event in departures]
+
+    return sum(wait_times)/len(wait_times)
 
 def main():
+    """Simulates banks and then produces a graph of wait times"""
     NUM_OF_BANKS = 10
 
     # Create 10 banks in a list
@@ -21,5 +38,18 @@ def main():
             bank.customers_arrive(10, 1)
             bank.simulate_tick()
 
+    # Simulate ticks for each bank until the bank runs out of customers
+    for bank in banks:
+        while bank.are_customers_in_bank():
+            bank.simulate_tick()
+
+    average_wait_times = [get_average_wait_time(bank) for bank in banks]
+
+    print(average_wait_times)
+
+    plt.plot(range(1,11), average_wait_times)
+    plt.show()
+
+# Allows automatic execution when 'python main.py' is run
 if __name__ == "__main__":
     main()
