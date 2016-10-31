@@ -13,3 +13,8 @@ Dependencies:
 - Python 3.x (might run on 2.x, but it is unsupported)
 - pytest (runs tests and integrates cleanly with Travis-CI)
 - matplotlib
+
+The example software can be run with 'python src/main.py' in this folder, or
+'python3 src/main.py', depending on which Python version is installed and 
+linked. matplotlib must be installed for Python 3. Some unit tests need pytest
+to execute, and pytest is the most efficient way to run all the tests at once.
