@@ -12,18 +12,15 @@ class Teller:
         self.__class__.current_id += 1
 
         self._current_customer = None
-        self._customers_served = 0
-        self._turns_idle = 0
 
     def has_customer(self):
         # Returns a boolean of whether or not the teller already has a customer
-        # Works on the Python principle that None is false-y
         # But requires devs to be careful to clear out the customer when the
         # customer leaves the teller (this is unit tested)
         if self._current_customer:
             return True
-
-        return False
+        else:
+            return False
 
     def take_customer(self, cust):
         # Assigns the tellre a customer, and throws an exception if there is

@@ -42,7 +42,8 @@ class Bank:
         # Check for free tellers, and give them customers, if there are any
         # This is advancing the queue, fundamentally
         for tell in self._tellers:
-            if ~tell.has_customer() and self.are_customers_in_queue():
+            queue_should_advance = self.are_customers_in_queue() and not tell.has_customer()
+            if queue_should_advance:
                 # List.pop(0) is the Pythonic method of queueing without
                 # using importing a queue library
                 tell.take_customer(self._customer_queue.pop(0))
@@ -78,7 +79,10 @@ class Bank:
         return False
 
     def are_customers_in_queue(self):
-        return self.length_of_queue() > 0
+        if self.length_of_queue() > 0:
+            return True
+        else:
+            return False
 
     def get_id(self):
         return self._id

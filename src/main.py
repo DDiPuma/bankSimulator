@@ -47,7 +47,11 @@ def main():
 
     print(average_wait_times)
 
-    plt.plot(range(1,11), average_wait_times)
+    plt.plot(range(1,11), average_wait_times, 'ro')
+    plt.title("Dependence of customer wait time on the number of tellers at a bank")
+    plt.xlabel("Number of tellers")
+    plt.ylabel("Average wait time")
+    plt.axis([0, 11, 0, 50])
     plt.show()
 
 # Allows automatic execution when 'python main.py' is run
